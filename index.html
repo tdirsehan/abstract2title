@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f6f9ff">
+<meta name="description" content="Abstract2Title generates and evaluates three publication-ready article titles from an abstract, with scoring, strengths and weaknesses.">
+<title>Abstract2Title</title>
+<style>
+:root{--bg:#f6f9ff;--surface:#fff;--surface2:#f9fbff;--text:#10213c;--muted:#62728a;--line:#dce5f1;--blue:#235fca;--blue2:#174488;--teal:#087a76;--green:#18794e;--red:#b54747;--amber:#9a6510;--soft:#edf4ff;--shadow:0 18px 55px rgba(37,65,103,.10)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:var(--text);background:radial-gradient(circle at 7% 0%,rgba(35,95,202,.10),transparent 26%),radial-gradient(circle at 95% 5%,rgba(8,122,118,.08),transparent 25%),linear-gradient(180deg,var(--bg),#fff 55%,#f3f7fd)}button,textarea{font:inherit}.wrap{width:min(1120px,calc(100% - 34px));margin:auto}.nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}.brand{font-weight:950;font-size:19px;letter-spacing:-.035em}.brand span{color:var(--blue)}.navnote{font-size:12px;color:var(--muted);font-weight:750}.hero{padding:55px 0 36px;text-align:center}.eyebrow{display:inline-flex;gap:8px;align-items:center;padding:7px 11px;border:1px solid #cad9ef;border-radius:999px;background:rgba(255,255,255,.82);font-size:12px;font-weight:900;color:var(--blue2);text-transform:uppercase;letter-spacing:.055em}.dot{width:7px;height:7px;border-radius:50%;background:var(--teal)}h1{font-size:clamp(44px,7vw,72px);letter-spacing:-.06em;line-height:.98;margin:18px auto 18px;max-width:900px}.grad{background:linear-gradient(100deg,var(--blue2),var(--blue),var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}.lead{max-width:780px;margin:auto;color:#4e6078;font-size:19px;line-height:1.65}.pipeline{display:flex;justify-content:center;flex-wrap:wrap;gap:7px;margin:24px auto 0;max-width:950px}.pipe{font-size:11px;font-weight:850;color:#526986;background:#fff;border:1px solid #d9e4f2;border-radius:999px;padding:7px 9px}.arrow{color:#98a8ba;align-self:center}.workspace{display:grid;grid-template-columns:1.05fr .95fr;gap:20px;align-items:start;padding:30px 0 65px}.card{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow)}.inputcard{padding:24px;position:sticky;top:15px}.labelrow{display:flex;justify-content:space-between;gap:15px;align-items:end;margin-bottom:10px}.labelrow label{font-weight:900;font-size:15px}.counter{font-size:12px;color:var(--muted)}textarea{width:100%;min-height:360px;resize:vertical;border:1px solid #ccd9e9;border-radius:17px;padding:16px;line-height:1.62;color:var(--text);background:#fbfdff;outline:none;transition:.15s}textarea:focus{border-color:#8aafe7;box-shadow:0 0 0 4px rgba(35,95,202,.08)}.inputactions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.btn{border:0;border-radius:13px;padding:13px 16px;font-weight:900;cursor:pointer;transition:.15s}.btn:hover{transform:translateY(-1px)}.primary{background:linear-gradient(135deg,#153d7d,var(--blue));color:#fff;box-shadow:0 10px 24px rgba(35,95,202,.20)}.secondary{background:#eef4fc;color:#24476f;border:1px solid #d4e0ee}.micro{margin-top:14px;padding:12px 13px;border-radius:13px;background:#f5f9fe;border:1px solid #e0e9f3;color:#667990;font-size:12px;line-height:1.55}.results{display:grid;gap:16px}.placeholder{padding:38px;text-align:center;color:var(--muted)}.placeholder .big{font-size:38px;margin-bottom:10px}.analysis{padding:20px}.analysis h2,.resultcard h2{margin:0 0 6px;letter-spacing:-.025em}.analysis p{margin:0;color:var(--muted);line-height:1.55}.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}.chip{padding:7px 9px;border-radius:999px;background:var(--soft);color:#315b8e;border:1px solid #d7e5f6;font-size:12px;font-weight:850}.contribution{margin-top:14px;padding:13px;border-left:4px solid var(--teal);border-radius:10px;background:#f4fbfa;color:#426463;font-size:13px;line-height:1.55}.resultcard{padding:22px;position:relative;overflow:hidden}.resultcard.best{border:2px solid #8fb3eb}.ribbon{position:absolute;right:0;top:0;background:#eaf2ff;color:var(--blue2);font-size:10px;font-weight:950;text-transform:uppercase;letter-spacing:.05em;padding:8px 11px;border-bottom-left-radius:13px}.strategy{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.055em;color:var(--teal);margin-bottom:8px}.titletext{font-family:Georgia,"Times New Roman",serif;font-size:23px;line-height:1.35;letter-spacing:-.015em;margin:0 0 16px;color:#132645}.scoreline{display:flex;align-items:center;gap:13px;margin:13px 0 18px}.score{width:62px;height:62px;display:grid;place-items:center;border-radius:50%;background:linear-gradient(145deg,#edf4ff,#f3fbfa);border:5px solid #d7e5f7;font-weight:950;font-size:18px;color:var(--blue2)}.scoremeta b{display:block}.scoremeta span{font-size:12px;color:var(--muted)}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px}.metric{padding:9px;border:1px solid #e2eaf4;border-radius:11px;background:#fbfdff}.metric b{display:block;font-size:13px}.metric span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}.critique{display:grid;grid-template-columns:1fr 1fr;gap:10px}.crit{padding:13px;border-radius:14px;border:1px solid #e1e8f2;background:#fbfcfe}.crit h3{font-size:12px;text-transform:uppercase;letter-spacing:.05em;margin:0 0 8px}.crit ul{padding-left:17px;margin:0;color:#52647c;font-size:12px;line-height:1.52}.crit.positive h3{color:var(--green)}.crit.negative h3{color:var(--red)}.copyrow{display:flex;justify-content:space-between;gap:10px;align-items:center;border-top:1px solid #e8eef6;margin-top:17px;padding-top:14px}.copybtn{border:0;background:#edf4ff;color:var(--blue2);border-radius:10px;padding:9px 11px;font-weight:900;font-size:12px;cursor:pointer}.length{font-size:11px;color:var(--muted)}.footnote{padding:20px 0 42px;text-align:center;color:#758399;font-size:11px;line-height:1.5}@media(max-width:880px){.workspace{grid-template-columns:1fr}.inputcard{position:static}.metrics{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.wrap{width:min(100% - 22px,1120px)}.hero{padding-top:35px}.lead{font-size:16px}.pipeline .arrow{display:none}.inputcard{padding:17px}.resultcard{padding:18px}.critique{grid-template-columns:1fr}.metrics{grid-template-columns:1fr 1fr}.titletext{font-size:20px}.navnote{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="nav"><div class="brand">Abstract<span>2Title</span></div><div class="navnote">Browser-based academic title evaluator</div></nav>
+<section class="hero">
+<div class="eyebrow"><span class="dot"></span> Academic publishing tool</div>
+<h1>Turn your abstract into <span class="grad">three stronger titles.</span></h1>
+<p class="lead">Generate and evaluate publication-ready article titles from your abstract. Abstract2Title proposes exactly three alternatives, scores them, and explains both their strengths and their weaknesses.</p>
+<div class="pipeline"><span class="pipe">Abstract</span><span class="arrow">→</span><span class="pipe">Concept extraction</span><span class="arrow">→</span><span class="pipe">Contribution identification</span><span class="arrow">→</span><span class="pipe">Title strategy</span><span class="arrow">→</span><span class="pipe">3 titles</span><span class="arrow">→</span><span class="pipe">Scoring & critique</span></div>
+</section>
+<section class="workspace">
+<div class="card inputcard">
+<div class="labelrow"><label for="abstract">Paste your abstract</label><span class="counter" id="counter">0 words</span></div>
+<textarea id="abstract" placeholder="Paste an English-language academic abstract here. For better results, include the research problem, key concepts, context, method and main contribution or findings."></textarea>
+<div class="inputactions"><button class="btn primary" id="generate">Generate & evaluate 3 titles</button><button class="btn secondary" id="sample">Load sample</button><button class="btn secondary" id="clear">Clear</button></div>
+<div class="micro">Privacy note: this version performs its analysis locally in your browser. The text entered on this page is not sent to an external AI service by the application.</div>
+</div>
+<div class="results" id="results"><div class="card placeholder"><div class="big">Aa</div><b>Your three title recommendations will appear here.</b><p>Each option will include a score, strategy, strengths, weaknesses and detailed criteria.</p></div></div>
+</section>
+<div class="footnote">Abstract2Title is a heuristic decision-support tool, not an editorial acceptance predictor. Final title selection should reflect the manuscript, target journal and author judgment.</div>
+</div>
+<script>
+const STOP=new Set(`a an and are as at be because been being between both by can could did do does doing during each for from further had has have having he her here hers herself him himself his how i if in into is it its itself just may might more most must my myself no nor not of off on once only or other our ours ourselves out over own same she should so some such than that the their theirs them themselves then there these they this those through to too under until up very was we were what when where which while who whom why will with would you your yours yourself yourselves using use used via based study studies research paper article authors author aim aims aimed purpose investigates investigate investigated investigation examines examine examined examining explores explore explored exploring analysis analyses analyze analyzed analysing result results findings find found show shows showed showing suggest suggests suggested study our this work data method methods sample samples participants participant approach approaches model models effect effects impact impacts relationship relationships role roles evidence context contexts case cases among within across`.split(/\s+/));
+const METHOD_TERMS=['experiment','experimental','survey','panel data','longitudinal','cross-sectional','structural equation modeling','sem','pls-sem','cb-sem','regression','qualitative','quantitative','mixed methods','q-methodology','bibliometric','systematic literature review','meta-analysis','case study','interviews','interview','machine learning','randomized','randomised'];
+const CONTEXT_TERMS=['consumers','customers','employees','firms','companies','universities','students','patients','cities','countries','economies','platforms','apps','applications','retail','tourism','hospitality','banking','healthcare','education','marketing','digital','online','mobile','social media','artificial intelligence','ai','chatbots','e-commerce','sustainability'];
+const CONTRIBUTION_CUES=['contribute','contributes','contribution','extend','extends','advances','advance','demonstrate','demonstrates','reveal','reveals','show','shows','find','finds','found','novel','first','introduce','introduces','develop','develops','offers','offer','provides','provide','results indicate','results show','findings indicate','findings show'];
+const HYPE=new Set(['groundbreaking','revolutionary','unprecedented','unique','ultimate','perfect','dramatic','game-changing','breakthrough','transformative']);
+function clean(s){return s.replace(/\s+/g,' ').trim()}
+function words(s){return (s.toLowerCase().match(/[a-z][a-z0-9'-]{2,}/g)||[])}
+function titleCase(s){const small=new Set(['and','or','of','in','on','for','to','with','from','by','the','a','an','via']);return s.split(' ').map((w,i)=>i&&small.has(w.toLowerCase())?w.toLowerCase():w.charAt(0).toUpperCase()+w.slice(1)).join(' ')}
+function sentences(s){return clean(s).split(/(?<=[.!?])\s+/).filter(x=>x.length>25)}
+function phraseCandidates(text){
+ const toks=(text.toLowerCase().replace(/[^a-z0-9\-\s]/g,' ').match(/[a-z][a-z0-9-]{2,}/g)||[]);
+ let phrases=[],cur=[];
+ for(const t of toks){if(STOP.has(t)||t.length<3){if(cur.length){phrases.push(cur);cur=[]}}else{cur.push(t);if(cur.length>=4){phrases.push(cur.slice(0,4));cur=cur.slice(2)}}}if(cur.length)phrases.push(cur);
+ const freq={}; for(const t of toks){if(!STOP.has(t))freq[t]=(freq[t]||0)+1}
+ const scored=[];
+ for(const p of phrases){for(let n=Math.min(4,p.length);n>=1;n--){for(let i=0;i<=p.length-n;i++){const a=p.slice(i,i+n);const key=a.join(' ');const score=a.reduce((z,w)=>z+(freq[w]||1),0)*(1+0.48*(n-1));if(key.length>3)scored.push({key,score,n})}}}
+ const seen=new Set(),out=[];scored.sort((a,b)=>b.score-a.score||b.n-a.n);
+ for(const x of scored){if(seen.has(x.key))continue;if([...seen].some(k=>k.includes(x.key)&&x.n===1))continue;seen.add(x.key);out.push(x);if(out.length>=12)break}
+ return out.map(x=>x.key)
+}
+function contributionSentence(text){const ss=sentences(text);let best='',score=-1;ss.forEach((s,i)=>{const l=s.toLowerCase();let v=CONTRIBUTION_CUES.reduce((n,c)=>n+(l.includes(c)?2:0),0);v+=i>ss.length/2?1:0;v+=/however|therefore|thus|thereby|suggest/.test(l)?1:0;if(v>score){score=v;best=s}});return best||ss[ss.length-1]||''}
+function findMethod(text){const l=text.toLowerCase();return METHOD_TERMS.find(x=>l.includes(x))||''}
+function findContext(text){const l=text.toLowerCase();const hits=CONTEXT_TERMS.filter(x=>l.includes(x));return hits.slice(0,2)}
+function distinctConcepts(cands){const out=[];for(const c of cands){const cw=new Set(c.split(' '));if(out.some(o=>{const ow=new Set(o.split(' '));const inter=[...cw].filter(x=>ow.has(x)).length;return inter/Math.min(cw.size,ow.size)>.65}))continue;out.push(c);if(out.length===5)break}return out}
+function safeConcept(c,fallback){return titleCase(clean(c||fallback||'Key Relationships'))}
+function generateTitles(text){
+ const c=distinctConcepts(phraseCandidates(text)); const A=safeConcept(c[0],'Core Phenomenon'),B=safeConcept(c[1],'Key Outcome'),C=safeConcept(c[2],'Research Context'),D=safeConcept(c[3],'Underlying Mechanism');
+ const ctx=findContext(text); const context=ctx.length?titleCase(ctx.join(' and ')):C; const method=findMethod(text); const contrib=contributionSentence(text);
+ let t1=`${A} and ${B}: Evidence from ${context}`;
+ let t2=`Beyond ${A}: How ${B} Shapes ${C} in ${context}`;
+ let t3=`${A}, ${B}, and ${C}: Understanding ${D}`;
+ if(A.toLowerCase().includes(B.toLowerCase())||B.toLowerCase().includes(A.toLowerCase()))t1=`${A}: The Role of ${C} in ${context}`;
+ if(C.toLowerCase()===context.toLowerCase())t2=`How ${B} Shapes ${A}: Evidence from ${context}`;
+ if(t3.split(/\s+/).length>20)t3=`${A} and ${C}: Understanding ${B}`;
+ return {concepts:c.slice(0,6),method,context,contrib,titles:[
+  {strategy:'Descriptive & precise',title:t1,note:'Prioritizes topic clarity, core constructs and empirical context.'},
+  {strategy:'Contribution-oriented',title:t2,note:'Frames the manuscript around a relationship or contribution claim.'},
+  {strategy:'Concise academic',title:t3,note:'Balances specificity with a shorter, conventional academic structure.'}
+ ]}
+}
+function metricScore(title,text,top,strategy){
+ const tw=words(title),aw=new Set(words(text)),topw=new Set(words(top.join(' '))); const len=tw.length;
+ const overlap=tw.filter(x=>aw.has(x)).length/Math.max(1,tw.length);
+ const topHit=[...topw].filter(x=>tw.includes(x)).length/Math.max(1,Math.min(topw.size,10));
+ const alignment=Math.round(Math.min(100,55+35*overlap+20*topHit));
+ const clarity=Math.max(50,Math.round(96-Math.abs(len-13)*2.2-(title.split(':').length>2?10:0)));
+ const specificity=Math.min(100,Math.round(56+36*topHit+(title.includes(':')?4:0)));
+ const academic=Math.max(55,Math.round(94-(title.includes('?')?10:0)-tw.filter(x=>HYPE.has(x)).length*15-(strategy.includes('Contribution')?2:0)));
+ const search=Math.min(100,Math.round(62+30*topHit+(len>=8&&len<=18?7:0)));
+ const concision=Math.max(45,Math.round(len<=16?96-Math.abs(len-12)*2.2:86-(len-16)*4));
+ const overall=Math.round(alignment*.30+clarity*.18+specificity*.17+academic*.15+search*.12+concision*.08);
+ return {overall,alignment,clarity,specificity,academic,search,concision,len}
+}
+function critique(t,m,meta){
+ const pos=[],neg=[];
+ if(m.alignment>=85)pos.push('Strong lexical alignment with the abstract.');else pos.push('Retains several central concepts from the abstract.');
+ if(m.specificity>=82)pos.push('Signals the manuscript focus with good specificity.');
+ if(m.clarity>=85)pos.push('Readable structure with a clear academic framing.');
+ if(m.search>=82)pos.push('Uses searchable topic terms that can aid discoverability.');
+ if(meta.context&&t.toLowerCase().includes(meta.context.toLowerCase()))pos.push('Makes the empirical or topical context visible.');
+ if(m.len>18)neg.push('Slightly long; trimming secondary concepts could improve memorability.');else if(m.len<8)neg.push('Very short; it may underspecify the manuscript scope.');else neg.push('Could still be tightened if the target journal favors shorter titles.');
+ if(t.startsWith('Beyond '))neg.push('The “Beyond …” framing is more assertive and may be less suitable for conservative journals.');
+ if(t.includes('How ')&&!/experiment|longitudinal|panel|random/i.test(meta.method||''))neg.push('“How” can sound causal; use it cautiously if the design is cross-sectional or non-causal.');
+ if(!meta.method)neg.push('The method is not visible in the title; this is fine unless methodological signaling is important for the target journal.');
+ if(meta.context&&!t.toLowerCase().includes(meta.context.toLowerCase()))neg.push('The main context is not explicit, which may reduce specificity.');
+ if(m.specificity<78)neg.push('One more core construct could improve specificity.');
+ return {pos:[...new Set(pos)].slice(0,3),neg:[...new Set(neg)].slice(0,3)}
+}
+function esc(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
+function render(){
+ const text=clean(document.getElementById('abstract').value); if(text.length<120){document.getElementById('results').innerHTML='<div class="card placeholder"><div class="big">!</div><b>Please enter a fuller abstract.</b><p>For meaningful title generation, use at least about 120 characters and preferably include the key findings or contribution.</p></div>';return}
+ const meta=generateTitles(text); const ranked=meta.titles.map(x=>({...x,m:metricScore(x.title,text,meta.concepts,x.strategy)})).sort((a,b)=>b.m.overall-a.m.overall);
+ let html=`<div class="card analysis"><h2>Abstract analysis</h2><p>The application first identifies recurring concepts and a likely contribution sentence, then uses them to construct three different title strategies.</p><div class="chips">${meta.concepts.slice(0,6).map(x=>`<span class="chip">${esc(titleCase(x))}</span>`).join('')}</div><div class="contribution"><b>Likely contribution signal:</b><br>${esc(meta.contrib||'No explicit contribution sentence was detected. Consider stating the main contribution more clearly in the abstract.')}${meta.method?`<br><br><b>Detected method:</b> ${esc(titleCase(meta.method))}`:''}</div></div>`;
+ ranked.forEach((r,i)=>{const c=critique(r.title,r.m,meta);html+=`<article class="card resultcard ${i===0?'best':''}">${i===0?'<div class="ribbon">Recommended title</div>':''}<div class="strategy">${i+1}. ${esc(r.strategy)}</div><h2 class="titletext">${esc(r.title)}</h2><div class="scoreline"><div class="score">${r.m.overall}</div><div class="scoremeta"><b>Title Fit Score</b><span>Heuristic fit to this abstract · not an acceptance probability</span></div></div><div class="metrics"><div class="metric"><b>${r.m.alignment}</b><span>Abstract fit</span></div><div class="metric"><b>${r.m.clarity}</b><span>Clarity</span></div><div class="metric"><b>${r.m.specificity}</b><span>Specificity</span></div><div class="metric"><b>${r.m.academic}</b><span>Academic tone</span></div><div class="metric"><b>${r.m.search}</b><span>Searchability</span></div><div class="metric"><b>${r.m.concision}</b><span>Concision</span></div></div><div class="critique"><div class="crit positive"><h3>What works</h3><ul>${c.pos.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div><div class="crit negative"><h3>What could be improved</h3><ul>${c.neg.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></div><div class="copyrow"><span class="length">${r.m.len} words · ${esc(r.note)}</span><button class="copybtn" data-title="${esc(r.title)}">Copy title</button></div></article>`});
+ document.getElementById('results').innerHTML=html; document.querySelectorAll('.copybtn').forEach(b=>b.onclick=async()=>{await navigator.clipboard.writeText(b.dataset.title);const old=b.textContent;b.textContent='Copied';setTimeout(()=>b.textContent=old,1200)})
+}
+const ta=document.getElementById('abstract'),counter=document.getElementById('counter');function count(){counter.textContent=words(ta.value).length+' words'}ta.addEventListener('input',count);document.getElementById('generate').onclick=render;document.getElementById('clear').onclick=()=>{ta.value='';count();document.getElementById('results').innerHTML='<div class="card placeholder"><div class="big">Aa</div><b>Your three title recommendations will appear here.</b><p>Each option will include a score, strategy, strengths, weaknesses and detailed criteria.</p></div>';ta.focus()};document.getElementById('sample').onclick=()=>{ta.value='Artificial intelligence chatbots are increasingly used to manage service failures in mobile food ordering applications, yet little is known about how chatbot-based recovery influences customer trust and post-recovery satisfaction. This study examines the roles of perceived responsiveness, fairness, and conversational quality in restoring trust after a service failure. Survey data from 412 mobile food ordering users were analyzed using structural equation modeling. The findings show that perceived responsiveness and fairness strengthen trust restoration, which subsequently increases post-recovery satisfaction and reuse intention. Conversational quality further amplifies the relationship between responsiveness and trust. The study contributes to service recovery and human–AI interaction research by explaining how specific chatbot attributes shape customer responses after technology-mediated service failures.';count();render()};
+</script>
+</body>
+</html>
